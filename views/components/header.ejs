@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Deployable blog</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/reader">Reader</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/author">Author</a>
+                </li>
+            </ul>
+            <% if (controls) {  %>
+                <a href="/settings" class="btn btn-sm btn-outline-secondary me-auto" >Settings</a>
+                <a href="/articles/create" class="btn btn-outline-success me-2" type="button">Create new Draft</a>
+            <% } %>
+        </div>
+    </div>
+</nav>

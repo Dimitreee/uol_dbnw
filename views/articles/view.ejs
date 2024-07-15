@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title><%= article.title %> - Uol Blog</title>
+</head>
+<body>
+<%- include('../components/header.ejs', { controls: false }) %>
+<div class="container mt-5">
+    <div class="row">
+        <h1><%= article.title %></h1>
+        <figcaption class="blockquote-footer">
+            <%= article.updated_at %> by <b><%= settings.name %></b>,
+            <span id="count"><%= article.likes %></span> likes
+            <% if (article.published) { %>
+                <button class="btn btn-outline-secondary btn-sm me-2" onclick="recordLike(<%= article.id %>)">
+                    <i class="bi bi-hand-thumbs-up-fill"></i> +1
+                </button>
+            <% } %>
+        </figcaption>
+    </div>
+    <div class="row">
+        <p><%- article.content -%></p>
+    </div>
+    <% if (article.published) { %>
+        <div class="row">
+            <h3>Comments</h3>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form id="commentForm" action="/articles/add-comment/<%= article.id %>" method="POST">
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Add a comment</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div id="commentsList" class="w-100">
+                <% comments.forEach(comment => { %>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-text"><%= comment.text %></p>
+                            <footer class="blockquote-footer"><%= comment.author %> on <%= comment.date %></footer>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    <% } %>
+</div>
+</body>
+<% if (article.published) { %>
+    <script>
+        async function recordView(id) {
+            const response = await fetch(`/articles/increase-views/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({id: id, count: <%= article.views %> + 1})
+            });
+
+            if (!response.ok) {
+                alert('Failed to record the view.');
+            }
+        }
+
+        async function recordLike(id) {
+            const response = await fetch(`/articles/increase-likes/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({id: id, likes: <%= article.likes %> + 1})
+            });
+
+            if (!response.ok) {
+                alert('Failed to record the like.');
+            }
+
+            location.reload();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            recordView(<%= article.id %>);
+        });
+    </script>
+<% } %>
+</html>

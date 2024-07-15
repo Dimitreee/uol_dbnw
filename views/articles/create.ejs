@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  type="text/css" href="/bootstrap.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tiny.cloud/1/eu6v55do66t7u1h6jkkc4qjyhtjo5kzmqzrx1zdhku9iqb8t/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#editor',
+            tinycomments_mode: 'embedded',
+            skin: 'bootstrap',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+        });
+    </script>
+    <title>Create Article</title>
+</head>
+<body>
+    <%- include('../components/header.ejs', { controls: true }) %>
+    <div class="container mt-5">
+        <div class="row">
+            <h1>Write your own, be creative</h1>
+        </div>
+        <div class="row">
+            <form class="form" action="/articles/create" method="POST">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title:</label>
+                    <input class="form-control" type="text" id="title" name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="content">Content:</label>
+                    <textarea id="editor" name="content"></textarea>
+                </div>
+                <input class="d-none" type="checkbox" name="published" value="false">
+                <div>
+                    <button class="btn btn-primary" type="submit">Save Draft</button>
+                    <a href="/author" class="btn btn-link mt-4 mb-4">Back to homespace</a>
+                </div>
+            </form>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/
+    </div>
+</body>
+</html>

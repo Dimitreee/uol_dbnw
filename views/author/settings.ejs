@@ -2,15 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  type="text/css" href="/main.css" />
-    <title>Add User</title>
+    <title>Settings</title>
 </head>
 <body>
-<h1>Change Settings</h1>
-<form action="add-user" method="post">
-    <p>Author: <input id="user" type="text" name="user_name" /></p>
-    <button type="submit">Update author settings</button>
-</form>
+<%- include('../components/header.ejs', { controls: true }) %>
+<div class="container mt-5">
+    <h1>Settings</h1>
+    <div class="row">
+        <form action="/settings" method="POST">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" value="<%= settings.title %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="name">Author's Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="<%= settings.name %>" required>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Update</button>
+                <a href="/author" class="btn btn-link mt-4 mb-4">Back to the homespace</a>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

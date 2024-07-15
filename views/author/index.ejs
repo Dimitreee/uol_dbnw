@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  type="text/css" href="/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>My Homespace</title>
+    <script>
+        async function publishArticle(id) {
+            const response = await fetch(`/articles/publish/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({id: id})
+            });
+
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert('Failed to publish the article.');
+            }
+        }
+    </script>
+</head>
+<body>
+<%- include('../components/header.ejs', { controls: true }) %>
+<div class="container mt-5">
+    <h1 class="mb-4">List of Articles</h1>
+
+    <ul class="list-group">
+        <% articles.forEach(article => { %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="col-8">
+                    <a href="/articles/<%= article.id %>"><%= article.title %></a>
+                    <small>
+                        <i class="bi bi-eye-fill"></i>
+                        <span><%= article.views %></span>
+                    </small>
+                    <small>
+                        <i class="bi bi-hand-thumbs-up"></i><span id="count"><%= article.likes %></span>
+                    </small>
+                </div>
+                <div>
+                <% if (!article.published) { %>
+                        <a class="btn btn-primary btn-sm " onclick="publishArticle(<%= article.id %>)">Publish</a>
+                    <% } else { %>
+                        <span class="badge badge-success btn-sm">Published</span>
+                    <% } %>
+                    <a href="/articles/edit/<%= article.id %>" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
+                </div>
+            </li>
+        <% }); %>
+    </ul>
+</div>
+</body>
+</html>

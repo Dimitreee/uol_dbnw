@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  type="text/css" href="/bootstrap.min.css" />
+    <title>Uol Blog</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4"><%= settings.title %></h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Welcome to <%= settings.title %></h5>
+                    <p class="card-text">Choose your role to start exploring or creating content on our blog.</p>
+                    <a href="/author" class="btn btn-primary">I'm an Author</a>
+                    <a href="/reader" class="btn btn-secondary">I'm a Reader</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
